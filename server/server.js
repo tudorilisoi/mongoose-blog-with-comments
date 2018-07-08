@@ -63,16 +63,15 @@ async function runServer(databaseUrl, port) {
 async function closeServer() {
     try {
         await mongoose.disconnect()
-        await new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             if (!server) {
                 return resolve(true)
             }
             console.log('Closing server');
             server.close(err => {
                 if (err) {
-                    throw err;
+                    return reject(err);
                 }
-                return resolve(true);
             });
         });
     } catch (ex) {

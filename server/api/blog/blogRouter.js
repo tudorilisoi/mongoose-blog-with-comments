@@ -12,7 +12,7 @@ const LIMIT = 10
 
 // setup blog posts CRUD
 async function createPost(req, res) {
-    
+
     // whenever there's a promise involved we need to use 'await'
     // if the promise fails the tryCatch will output a nice JSON message        
     const record = await blogPostModel.create({
@@ -35,15 +35,15 @@ async function getPosts(req, res) {
     // and how to make an HTTP request for a specific page
     const total = await blogPostModel.count()
 
-    
-    if (offset > total) {
+
+    if (offset > total || offset < 0) {
         throw new Error('OUT_OF_BOUNDS')
     }
 
     // order all posts from newest to oldest
     // then skip [offset] records
     // then take [LIMIT] records 
-    
+
     const records = await blogPostModel
         .find({})
         .sort([['date', -1]])
@@ -52,7 +52,7 @@ async function getPosts(req, res) {
 
     // return the resulting posts as JSON  along with the [total] number of existing posts    
     res.json({
-        pageSize:LIMIT,
+        pageSize: LIMIT,
         total, //same as writing total: total
         posts: records.map(record => record.serialize()),
     })
