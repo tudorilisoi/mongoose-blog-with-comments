@@ -9,7 +9,7 @@
  
 ## Installation
 
-- git clone it locally or fork it with Github
+- `git clone` it locally or (better) fork it with Github
 - run `npm install` or `yarn` 
 - run `npm run develop` to start developing locally
 
