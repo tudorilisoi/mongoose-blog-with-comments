@@ -52,6 +52,7 @@ async function getPosts(req, res) {
 
     // return the resulting posts as JSON  along with the [total] number of existing posts    
     res.json({
+        pageSize:LIMIT,
         total, //same as writing total: total
         posts: records.map(record => record.serialize()),
     })
