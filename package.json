@@ -1,0 +1,29 @@
+{
+  "name": "mongoose-blog-with-comments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:blog": "mocha test/blog.js --timeout 10000 --exit",
+    "test": "mocha --exit --timeout 10000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "express": "^4.16.3",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.2.1",
+    "mocha": "^5.1.1",
+    "mongoose": "^5.1.0",
+    "mongoose-seed": "^0.4.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
