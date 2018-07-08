@@ -57,6 +57,7 @@ async function getPosts(req, res) {
         posts: records.map(record => record.serialize()),
     })
 }
+
 router.get('/posts', tryCatch(getPosts));
 
 // the offset parameter makes it possible to split a large number of posts into chunks/pages

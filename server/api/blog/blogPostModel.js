@@ -14,12 +14,11 @@ BlogPostSchema.methods.serialize = function() {
   return {
     id: this._id,
     title: this.title,
-    date: this.date,
-   
+    date: this.date,   
   };
 };
 
 const BlogPostModel = mongoose.model('BlogPostModel', BlogPostSchema);
 
 module.exports = BlogPostModel
- 
+
