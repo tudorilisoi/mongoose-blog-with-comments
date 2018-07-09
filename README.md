@@ -1,4 +1,4 @@
-# A node/express/mongoose blog app example
+# A node/express/mongoose blog app example using modern JS language features
 
 ## Features:
  
