@@ -8,7 +8,7 @@
     "watch:test:api": "nodemon --watch server -x 'npm run test:api'",
     "develop": "nodemon --watch server server/server.js"
   },
-  "author": "",
+  "author": "tudorilisoi@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^2.0.1",
