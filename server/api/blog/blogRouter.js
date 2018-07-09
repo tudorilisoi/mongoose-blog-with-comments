@@ -100,9 +100,13 @@ async function updatePost(req, res) {
     // new to reduce? 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce    
     const newFieldValues = fieldNamesArr.reduce((acc, fieldName) => {
-        const value = req.body[fieldName]
+        
         if (requestFieldNames.includes(fieldName)) { // is this field name present in the request?
-            if (value !== undefined) { //is there an usable value?
+            const value = req.body[fieldName]
+
+            // is there an usable value? 
+            // if so, add it to the reduce() return object
+            if (value !== undefined) { 
                 acc[fieldName] = value
             }
         }
