@@ -2,7 +2,7 @@
 
 ## Features:
  
- - lots of comments in the code so you can (hopefully) easier figure it out
+ - lots of comments in the code so you can (hopefully) figure it out a bit easier
  - async/await to simplify working with promises. 
  [MDN doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 
