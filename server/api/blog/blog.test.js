@@ -142,7 +142,7 @@ describe('blog API routes', function () {
             // start fresh by deleting all posts
             await deleteCollections(['blogpostmodels'])
 
-            // create posts using the model and seedData (not the API)
+            // create posts directly in the database using the model and seedData (not the API)
             await Promise.all(seedData.map(item => PostModel.create(item)))
 
             // retrieve posts through an API call
