@@ -45,7 +45,7 @@ describe('blog API routes', function () {
 
         let createdPost, deletedPost
 
-        it('should update a post by id', async () => {
+        it('should update a post by id (PUT)', async () => {
             const title = 'A post with an akward title: ' + Math.random()
             const newTitle = 'Hey! I changed the title!'
 
@@ -64,7 +64,7 @@ describe('blog API routes', function () {
         })
 
 
-        it('should create a new post', async () => {
+        it('should create a new post (POST)', async () => {
             const title = 'A post with an akward title: ' + Math.random()
             const res = await chai
                 .request(app)
@@ -87,7 +87,7 @@ describe('blog API routes', function () {
         })
 
         //NOTE this depends on the previous it() being sucessful
-        it('should retrieve a post by id', async () => {
+        it('should retrieve a post by id (GET)', async () => {
             const res = await chai.request(app).get(`/blog/post/${createdPost.id}`)
             expect(res).to.have.status(200)
             expect(res).to.be.json;
@@ -96,7 +96,7 @@ describe('blog API routes', function () {
         })
 
         //NOTE this depends on the previous it() being sucessful
-        it('should delete a post by id', async () => {
+        it('should delete a post by id (DELETE)', async () => {
             const res = await chai.request(app).delete(`/blog/post/${createdPost.id}`)
             expect(res).to.have.status(200)
             expect(res).to.be.json;
