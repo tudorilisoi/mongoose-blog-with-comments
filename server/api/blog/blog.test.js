@@ -44,7 +44,27 @@ describe('blog API routes', function () {
     describe('CRUD /blog/post', () => {
 
         let createdPost, deletedPost
-        it('should create and retrieve a post', async () => {
+
+        it('should update a post by id', async () => {
+            const title = 'A post with an akward title: ' + Math.random()
+            const newTitle = 'Hey! I changed the title!'
+
+            //create a post directly in the db
+            const record = await PostModel.create({ title })
+            
+            //make an API HTTP request with an updated title
+            const res = await chai
+                .request(app)
+                .put(`/blog/post/${record._id}`)
+                .send({ title: newTitle })
+            expect(res).to.have.status(200)
+            expect(res).to.be.json;
+            const { post } = res.body
+            expect(post.title).to.equal(newTitle)
+        })
+
+
+        it('should create a new post', async () => {
             const title = 'A post with an akward title: ' + Math.random()
             const res = await chai
                 .request(app)

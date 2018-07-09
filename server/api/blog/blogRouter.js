@@ -84,6 +84,39 @@ router.get('/posts', tryCatch(getPosts));
 router.get('/posts/:offset', tryCatch(getPosts));
 
 
+async function updatePost(req, res) {
+    const existingRecord = await blogPostModel.findById(req.params.id)
+    if (existingRecord === null) {
+        return res.status(404).json({ message: 'NOT_FOUND' })
+    }
+    
+    // if adding more updatable fields to the model schema later on, just change this line
+    // for example, if adding 'postBody' the next line will become 
+    // const fieldNamesArr = 'title postBody'.split(' ')
+    const fieldNamesArr = 'title'.split(' ') //this will get us an array of updatable field names
+
+    // new to reduce? 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+    const newFieldValues = fieldNamesArr.reduce((acc, fieldName) => {
+        const value = req.body[fieldName]
+        if (value !== undefined) {
+            acc[fieldName] = value
+        }
+        return acc
+    }, {})
+
+    const updatedRecord = await blogPostModel.findByIdAndUpdate(
+        { '_id': req.params.id },
+        { $set: newFieldValues },
+        { new: true } //tell mongoose to return the updated document 
+    )
+    res.json({ post: updatedRecord.serialize() })
+}
+
+// Update
+router.put('/post/:id', tryCatch(updatePost));
+
+
 async function deletePost(req, res) {
     const record = await blogPostModel.findByIdAndRemove(req.params.id)
     res.json({ post: record.serialize() })
