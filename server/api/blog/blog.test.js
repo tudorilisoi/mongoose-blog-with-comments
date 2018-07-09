@@ -130,7 +130,7 @@ describe('blog API routes', function () {
         it('should fail when the offset param is out of bounds', async () => {
             const res = await chai.request(app).get('/blog/posts/10')
             expect(res).to.be.json;
-            expect(res).to.have.status(500)
+            expect(res).to.have.status(400)
         })
 
 

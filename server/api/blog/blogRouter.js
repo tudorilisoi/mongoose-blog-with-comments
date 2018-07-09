@@ -55,7 +55,11 @@ async function getPosts(req, res) {
 
 
     if (offset > total || offset < 0) {
-        throw new Error('OUT_OF_BOUNDS')
+        
+        //HTTP 400 = bad request
+        return res.status(400).json({
+            message: 'OUT_OF_BOUNDS'
+        })
     }
 
     // order all posts from newest to oldest
@@ -100,13 +104,13 @@ async function updatePost(req, res) {
     // new to reduce? 
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce    
     const newFieldValues = fieldNamesArr.reduce((acc, fieldName) => {
-        
+
         if (requestFieldNames.includes(fieldName)) { // is this field name present in the request?
             const value = req.body[fieldName]
 
             // is there an usable value? 
             // if so, add it to the reduce() return object
-            if (value !== undefined) { 
+            if (value !== undefined) {
                 acc[fieldName] = value
             }
         }
