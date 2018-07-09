@@ -50,9 +50,12 @@ describe('blog API routes', function () {
                 .send({ title })
             expect(res).to.have.status(200)
             expect(res).to.be.json;
-            expect(res.body.post).to.be.an('object');
-            expect(res.body.post.title).to.equal(title)
-            expect(res.body.post.id).to.not.be.undefined
+            const {post} = res.body
+            expect(post).to.be.an('object');
+            expect(post.title).to.equal(title)
+            expect(post.id).to.not.be.undefined
+            const createdAt = new Date(post.createdAt)
+            expect (createdAt).to.be.a('date')
         })
     })
 
