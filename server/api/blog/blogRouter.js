@@ -51,7 +51,7 @@ async function getPosts(req, res) {
     // the [total] count is useful when implementing a paged navigation pattern, 
     // when we need to compute how many pages of [LIMIT] size are there 
     // and how to make an HTTP request for a specific page
-    const total = await blogPostModel.count()
+    const total = await blogPostModel.countDocuments()
 
 
     if (offset > total || offset < 0) {
