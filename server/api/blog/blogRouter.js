@@ -10,19 +10,35 @@ const router = express.Router();
 //hardcoded limit for posts per page
 const LIMIT = 10
 
+//
 // setup blog posts CRUD
+//
+
+
 async function createPost(req, res) {
 
     // whenever there's a promise involved we need to use 'await'
-    const record = await blogPostModel.create({        
+    const record = await blogPostModel.create({
         title: req.body.title || 'Untitled post'
     })
 
     res.json({ post: record.serialize() })
 }
 
-// if the promise fails the tryCatch will output a nice JSON message        
+// Create
+// NOTE if the promise fails the tryCatch will output a nice JSON message        
 router.post('/post/create', tryCatch(createPost));
+
+async function getPost(req, res) {
+    const record = await blogPostModel.findById(req.params.id)
+    if (record === null) {
+        return res.status(404).json({ message: 'NOT_FOUND' })
+    }
+    res.json({ post: record.serialize() })
+}
+
+// Retrieve one
+router.get('/post/:id', tryCatch(getPost));
 
 
 async function getPosts(req, res) {
@@ -59,11 +75,20 @@ async function getPosts(req, res) {
     })
 }
 
+// Retrieve many
 router.get('/posts', tryCatch(getPosts));
 
 // the offset parameter makes it possible to split a large number of posts into chunks/pages
 // for example /blog/posts/0 = the latest 10 posts, /blog/posts/10 = the next (older) 10 posts    
 router.get('/posts/:offset', tryCatch(getPosts));
 
+
+async function deletePost(req, res) {
+    const record = await blogPostModel.findByIdAndRemove(req.params.id)
+    res.json({ post: record.serialize() })
+}
+
+// Delete
+router.delete('/post/:id', tryCatch(deletePost));
 
 module.exports = router

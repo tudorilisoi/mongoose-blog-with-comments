@@ -42,7 +42,9 @@ describe('blog API routes', function () {
 
 
     describe('POST /blog/post/create', () => {
-        it('should create a post', async () => {
+
+        let createdPost, deletedPost
+        it('should create and retrieve a post', async () => {
             const title = 'A post with an akward title: ' + Math.random()
             const res = await chai
                 .request(app)
@@ -52,7 +54,8 @@ describe('blog API routes', function () {
             expect(res).to.be.json;
 
             // object destructuring: the next line is equivalent to const post = res.body.post
-            const { post } = res.body 
+            const { post } = res.body
+            createdPost = post
             expect(post).to.be.an('object');
             expect(post.title).to.equal(title)
             expect(post.id).to.be.a('string')
@@ -60,7 +63,35 @@ describe('blog API routes', function () {
             const createdAt = new Date(post.createdAt)
             expect(createdAt).to.be.a('date')
             expect(createdAt.toDateString()).to.not.equal('Invalid Date')
+
         })
+
+        it('should retrieve a post by id', async () => {
+            const res = await chai.request(app).get(`/blog/post/${createdPost.id}`)
+            expect(res).to.have.status(200)
+            expect(res).to.be.json;
+            const { post: retrievedPost } = res.body
+            expect(retrievedPost).to.deep.equal(createdPost)
+        })
+
+        it('should delete a post by id', async () => {
+            const res = await chai.request(app).delete(`/blog/post/${createdPost.id}`)
+            expect(res).to.have.status(200)
+            expect(res).to.be.json;
+            const { post } = res.body
+            deletedPost = post
+            expect(post).to.deep.equal(createdPost)
+        })
+
+
+        it('should return a 404 for non-existent post', async () => {
+            const nxID = deletedPost.id
+            const res = await chai.request(app).get(`/blog/post/${nxID}`)
+            expect(res).to.have.status(404)
+            expect(res).to.be.json;
+        })
+
+
     })
 
     describe('GET /blog/posts (no records)', () => {
