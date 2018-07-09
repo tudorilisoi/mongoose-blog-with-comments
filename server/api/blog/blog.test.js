@@ -85,13 +85,18 @@ describe('blog API routes', function () {
 
     describe('GET /blog/posts (some records)', () => {
         it('should respond with JSON', async () => {
+
+            //start fresh by deleting all posts
             await deleteCollections(['blogpostmodels'])
+
+            //create 3 posts using the model (not the API)
             await Promise.all(mockData.map(item => PostModel.create(item)))
             const res = await chai.request(app).get('/blog/posts')
             expect(res).to.have.status(200)
             expect(res).to.be.json;
             expect(res.body.posts).to.be.an('array');
             expect(res.body.posts).to.have.lengthOf(3)
+            expect(res.body.total).to.equal(3)
         })
 
         it('should account for the offset param', async () => {

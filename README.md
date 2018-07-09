@@ -3,11 +3,13 @@
 ## Features:
  
  - lots of comments in the code so you can (hopefully) easier figure it out
- - async/await to simplify working with promises
+ - async/await to simplify working with promises. 
+ [MDN doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
+
  - modular, add a `/server/api/<newFeature>` folder and change `server/api/api.js` to enable the newly added router and models
  - TODO demonstrates relations between mongoose collections (e.g. (blog post) -> (post comments) )
  
-## Installation
+## Installation/usage
 
 - `git clone` it locally or (better) fork it with Github
 - run `npm install` or `yarn` 
