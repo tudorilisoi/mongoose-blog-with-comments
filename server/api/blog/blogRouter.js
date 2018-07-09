@@ -89,18 +89,22 @@ async function updatePost(req, res) {
     if (existingRecord === null) {
         return res.status(404).json({ message: 'NOT_FOUND' })
     }
-    
+
     // if adding more updatable fields to the model schema later on, just change this line
     // for example, if adding 'postBody' the next line will become 
     // const fieldNamesArr = 'title postBody'.split(' ')
-    const fieldNamesArr = 'title'.split(' ') //this will get us an array of updatable field names
+    const fieldNamesArr = 'title'.split(' ') //an array of updatable field names
+
+    const requestFieldNames = Object.keys(req.body)
 
     // new to reduce? 
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce    
     const newFieldValues = fieldNamesArr.reduce((acc, fieldName) => {
         const value = req.body[fieldName]
-        if (value !== undefined) {
-            acc[fieldName] = value
+        if (requestFieldNames.includes(fieldName)) { // is this field name present in the request?
+            if (value !== undefined) { //is there an usable value?
+                acc[fieldName] = value
+            }
         }
         return acc
     }, {})
@@ -119,6 +123,9 @@ router.put('/post/:id', tryCatch(updatePost));
 
 async function deletePost(req, res) {
     const record = await blogPostModel.findByIdAndRemove(req.params.id)
+    if (record === null) {
+        return res.status(404).json({ message: 'NOT_FOUND' })
+    }
     res.json({ post: record.serialize() })
 }
 
