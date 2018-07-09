@@ -20,7 +20,7 @@ Created for [Thinkful](https://github.com/Thinkful-Ed) students by [@tudorilisoi
 
 Feel free to contribute your pull requests and any suggestions you might have.
 
-Reach me on twitter: [@tudorvi](https://twitter.com/tudorvi])
+Reach me on twitter: [@tudorvi](https://twitter.com/tudorvi)
 
 
 
