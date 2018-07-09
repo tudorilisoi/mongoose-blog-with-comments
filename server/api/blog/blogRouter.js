@@ -17,7 +17,8 @@ const LIMIT = 10
 
 async function createPost(req, res) {
 
-    // whenever there's a promise involved we need to use 'await'
+    // whenever there's a promise returned we need to use 'await'
+    // so the next line retrieves the actual record, not the promise
     const record = await blogPostModel.create({
         title: req.body.title || 'Untitled post'
     })
