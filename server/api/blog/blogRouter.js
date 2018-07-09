@@ -14,13 +14,14 @@ const LIMIT = 10
 async function createPost(req, res) {
 
     // whenever there's a promise involved we need to use 'await'
-    // if the promise fails the tryCatch will output a nice JSON message        
-    const record = await blogPostModel.create({
-        date: new Date(),
+    const record = await blogPostModel.create({        
         title: req.body.title || 'Untitled post'
     })
+
     res.json({ post: record.serialize() })
 }
+
+// if the promise fails the tryCatch will output a nice JSON message        
 router.post('/post/create', tryCatch(createPost));
 
 
