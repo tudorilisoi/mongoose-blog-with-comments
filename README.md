@@ -16,6 +16,8 @@
 
 ### Misc.
 
+Not yet tested on Windows, so YMMV.
+
 Created for [Thinkful](https://github.com/Thinkful-Ed) students by [@tudorilisoi](https://github.com/tudorilisoi)
 
 Feel free to contribute your pull requests and any suggestions you might have.
