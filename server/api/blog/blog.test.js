@@ -11,12 +11,12 @@ const expect = chai.expect; //using the chai assertion library
 const should = chai.should()
 chai.use(chaiHttp)
 
-const mockData = [
+const seedData = [
     { title: 'Post 1' },
     { title: 'Post 2' },
     { title: 'Post 3' },
 ]
-
+const SEED_DATA_LENGTH = seedData.length
 
 async function deleteCollections(namesArr) {
     // get existing collections
@@ -139,26 +139,31 @@ describe('blog API routes', function () {
     describe('GET /blog/posts (some records)', () => {
         it('should respond with JSON', async () => {
 
-            //start fresh by deleting all posts
+            // start fresh by deleting all posts
             await deleteCollections(['blogpostmodels'])
 
-            //create 3 posts using the model (not the API)
-            await Promise.all(mockData.map(item => PostModel.create(item)))
+            // create posts using the model and seedData (not the API)
+            await Promise.all(seedData.map(item => PostModel.create(item)))
+
+            // retrieve posts through an API call
             const res = await chai.request(app).get('/blog/posts')
             expect(res).to.have.status(200)
             expect(res).to.be.json;
             expect(res.body.posts).to.be.an('array');
-            expect(res.body.posts).to.have.lengthOf(3)
-            expect(res.body.total).to.equal(3)
+            expect(res.body.posts).to.have.lengthOf(SEED_DATA_LENGTH)
+            expect(res.body.total).to.equal(SEED_DATA_LENGTH)
         })
 
         it('should account for the offset param', async () => {
-            const res = await chai.request(app).get('/blog/posts/2')
+            const numRecordsToSkip=2
+            const res = await chai.request(app).get(`/blog/posts/${numRecordsToSkip}`)
             expect(res).to.be.json;
             expect(res).to.have.status(200)
             expect(res.body.posts).to.be.an('array');
-            expect(res.body.posts).to.have.lengthOf(1)
-            expect(res.body.total).to.equal(3)
+
+            // the number of returned posts should be (SEED_DATA_LENGTH - numRecordsToSkip)
+            expect(res.body.posts).to.have.lengthOf(SEED_DATA_LENGTH - numRecordsToSkip)
+            expect(res.body.total).to.equal(SEED_DATA_LENGTH)
         })
 
 
