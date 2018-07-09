@@ -50,12 +50,16 @@ describe('blog API routes', function () {
                 .send({ title })
             expect(res).to.have.status(200)
             expect(res).to.be.json;
-            const { post } = res.body
+
+            // object destructuring: the next line is equivalent to const post = res.body.post
+            const { post } = res.body 
             expect(post).to.be.an('object');
             expect(post.title).to.equal(title)
-            expect(post.id).to.not.be.undefined
+            expect(post.id).to.be.a('string')
+            expect(post.createdAt).to.be.a('string')
             const createdAt = new Date(post.createdAt)
             expect(createdAt).to.be.a('date')
+            expect(createdAt.toDateString()).to.not.equal('Invalid Date')
         })
     })
 

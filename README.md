@@ -11,12 +11,15 @@
 
 - `git clone` it locally or (better) fork it with Github
 - run `npm install` or `yarn` 
-- run `npm run develop` to start developing locally
-
+- run `npm run develop` in a terminal to start developing locally. The server will reload every time you make changes in the code
+- `npm run test:api` will run all the tests it can find in the server folder and its subfolders. You need to name the test files after this pattern: `someArbitraryName.test.js`
 
 ### Misc.
 
-Created for Thinkful students by @tudorilisoi
+Created for [Thinkful](https://github.com/Thinkful-Ed) students by [@tudorilisoi](https://github.com/tudorilisoi)
 
-Feel free to contribute your pull requests.
+Feel free to contribute your pull requests and any suggestions you might have.
+
+Reach me on twitter: (@tudorvi)[https://twitter.com/tudorvi]
+
 
