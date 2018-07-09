@@ -16,6 +16,8 @@
 
 ### Misc.
 
+Works on my machine™ with node version `v8.9.0` 
+
 Not yet tested on Windows, so YMMV.
 
 Created for [Thinkful](https://github.com/Thinkful-Ed) students by [@tudorilisoi](https://github.com/tudorilisoi)
