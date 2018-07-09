@@ -53,9 +53,8 @@ async function getPosts(req, res) {
     // and how to make an HTTP request for a specific page
     const total = await blogPostModel.countDocuments()
 
-
     if (offset > total || offset < 0) {
-        
+
         //HTTP 400 = bad request
         return res.status(400).json({
             message: 'OUT_OF_BOUNDS'
@@ -65,7 +64,6 @@ async function getPosts(req, res) {
     // order all posts from newest to oldest
     // then skip [offset] records
     // then take [LIMIT] records 
-
     const records = await blogPostModel
         .find({})
         .sort([['date', -1]])
