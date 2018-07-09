@@ -41,7 +41,7 @@ describe('blog API routes', function () {
     })
 
 
-    describe('POST /blog/post/create', () => {
+    describe('CRUD /blog/post', () => {
 
         let createdPost, deletedPost
         it('should create and retrieve a post', async () => {
@@ -66,6 +66,7 @@ describe('blog API routes', function () {
 
         })
 
+        //NOTE this depends on the previous it() being sucessful
         it('should retrieve a post by id', async () => {
             const res = await chai.request(app).get(`/blog/post/${createdPost.id}`)
             expect(res).to.have.status(200)
@@ -74,6 +75,7 @@ describe('blog API routes', function () {
             expect(retrievedPost).to.deep.equal(createdPost)
         })
 
+        //NOTE this depends on the previous it() being sucessful
         it('should delete a post by id', async () => {
             const res = await chai.request(app).delete(`/blog/post/${createdPost.id}`)
             expect(res).to.have.status(200)
@@ -83,7 +85,7 @@ describe('blog API routes', function () {
             expect(post).to.deep.equal(createdPost)
         })
 
-
+        //NOTE this depends on the previous it() being sucessful
         it('should return a 404 for non-existent post', async () => {
             const nxID = deletedPost.id
             const res = await chai.request(app).get(`/blog/post/${nxID}`)
