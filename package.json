@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:blog": "mocha test/blog.js --timeout 10000 --exit",
-    "test": "mocha --exit --timeout 10000"
+    "test:api": "mocha 'server/**/*.test.js' --exit --timeout 10000"
   },
   "author": "",
   "license": "ISC",

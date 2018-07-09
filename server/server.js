@@ -1,8 +1,9 @@
-//node/npm imports
+// node builtins/npm imports
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const os = require('os')
 
 //app-specific imports
 const { DATABASE_URL, TEST_DATABASE_URL, PORT } = require('../config.js');
@@ -33,7 +34,8 @@ function runHttpServer(port) {
     return new Promise((resolve, reject) => {
         const server = app.listen(port, () => {
             console.log(`EXPRESS HTTP(S) SERVER STARTED ON PORT ${port}`);
-            console.log(`base URL for localhost development: http://localhost:${port}`);
+            const hostname = os.hostname() || 'localhost'
+            console.log(`APP URL is: http://${hostname}:${port}`);
             resolved = true
             resolve(server)
         }).on('error', err => {
@@ -67,15 +69,17 @@ async function closeServer() {
             if (!server) {
                 return resolve(true)
             }
-            console.log('Closing server');
+            console.log('CLOSING SERVER');
             server.close(err => {
                 if (err) {
                     return reject(err);
                 }
+                return resolve(true)
             });
         });
     } catch (ex) {
         console.error('CANNOT STOP SERVER', ex)
+        return false;
     }
 
 }
