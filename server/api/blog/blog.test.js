@@ -51,7 +51,7 @@ describe('blog API routes', function () {
 
             //create a post directly in the db
             const record = await PostModel.create({ title })
-            
+
             //make an API HTTP request with an updated title
             const res = await chai
                 .request(app)
@@ -155,7 +155,7 @@ describe('blog API routes', function () {
         })
 
         it('should account for the offset param', async () => {
-            const numRecordsToSkip=2
+            const numRecordsToSkip = 2
             const res = await chai.request(app).get(`/blog/posts/${numRecordsToSkip}`)
             expect(res).to.be.json;
             expect(res).to.have.status(200)
