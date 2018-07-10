@@ -3,7 +3,7 @@
 ## Features:
  
  - lots of comments in the code so you can (hopefully) figure it out a bit easier
- - uses async/await extensively to simplify working with promises. 
+ - uses `async/await` extensively to simplify working with promises. 
  [MDN doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 
  - modular, add a `/server/api/<newFeature>` folder and change `server/api/api.js` to enable the newly added router and models
@@ -24,7 +24,7 @@ Not yet tested on Windows, so YMMV.
 
 Created for [Thinkful](https://github.com/Thinkful-Ed) students by [@tudorilisoi](https://github.com/tudorilisoi)
 
-Feel free to contribute your pull requests and any suggestions you might have.
+Feel free to contribute your pull requests and any suggestions you may have.
 
 Reach me on twitter: [@tudorvi](https://twitter.com/tudorvi)
 
