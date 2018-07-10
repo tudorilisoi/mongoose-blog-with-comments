@@ -12,8 +12,8 @@ const LIMIT = 10
 
 // NOTE: if adding more updatable fields to the model schema later on, just change this line
 // for example, if adding 'postBody' the next line will become 
-// const postModelFields = 'title postBody'.split(' ')
-const postModelFields = 'title'.split(' ') //an array of updatable field names
+// const POST_MODEL_FIELDS = 'title postBody'.split(' ')
+const POST_MODEL_FIELDS = 'title'.split(' ') //an array of updatable field names
 
 function getFieldsFromRequest(fieldNamesArr, req) {
     const requestFieldNames = Object.keys(req.body)
@@ -43,7 +43,7 @@ function getFieldsFromRequest(fieldNamesArr, req) {
 
 async function createPost(req, res) {
 
-    const fieldValues = getFieldsFromRequest(postModelFields, req)
+    const fieldValues = getFieldsFromRequest(POST_MODEL_FIELDS, req)
 
     // whenever there's a promise returned we need to use 'await'
     // on the next line we retrieve into 'record' 
@@ -118,7 +118,7 @@ async function updatePost(req, res) {
     if (existingRecord === null) {
         return res.status(404).json({ message: 'NOT_FOUND' })
     }
-    const newFieldValues = getFieldsFromRequest(postModelFields, req)
+    const newFieldValues = getFieldsFromRequest(POST_MODEL_FIELDS, req)
 
     const updatedRecord = await blogPostModel.findByIdAndUpdate(
         { '_id': req.params.id },
