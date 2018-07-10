@@ -27,7 +27,7 @@ async function createPost(req, res) {
 }
 
 // Create
-// NOTE if the promise fails the tryCatch will output a nice JSON message        
+// NOTE if the async function fails the tryCatch will output a nice JSON message        
 router.post('/post/create', tryCatch(createPost));
 
 async function getPost(req, res) {
