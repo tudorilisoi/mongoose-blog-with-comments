@@ -14,7 +14,7 @@
 - `git clone` it locally or (better) fork it with Github
 - run `npm install` or `yarn` 
 - run `npm run develop` in a terminal to start developing locally. The server will reload every time you make changes in the code
-- `npm run test:api` will run all the tests it can find in the server folder and its subfolders. You need to name the test files after this pattern: `someArbitraryName.test.js`
+- `npm run test:api` will run all the tests it can find in the `server` folder and its subfolders. You need to name the test files after this pattern: `someArbitraryName.test.js`
 
 ### Misc.
 
