@@ -3,7 +3,7 @@
 ## Features:
  
  - lots of comments in the code so you can (hopefully) figure it out a bit easier
- - async/await to simplify working with promises. 
+ - uses async/await extensively to simplify working with promises. 
  [MDN doc](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 
  - modular, add a `/server/api/<newFeature>` folder and change `server/api/api.js` to enable the newly added router and models
