@@ -81,7 +81,9 @@ describe('blog API routes', function () {
             expect(post.createdAt).to.be.a('string')
             const createdAt = new Date(post.createdAt)
             expect(createdAt).to.be.a('date')
-            expect(createdAt.toDateString()).to.not.equal('Invalid Date')
+
+            //for an invalid Date instance, getTime() is NaN
+            expect(createdAt.getTime()).to.not.equal(NaN)
 
         })
 
