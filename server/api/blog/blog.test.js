@@ -82,7 +82,7 @@ describe('blog API routes', function () {
             const createdAt = new Date(post.createdAt)
             expect(createdAt).to.be.a('date')
 
-            //for an invalid Date instance, getTime() is NaN
+            //for an invalid Date instance, getTime() is NaN (not a number)
             expect(createdAt.getTime()).to.not.equal(NaN)
 
         })
