@@ -33,7 +33,6 @@ describe('blog API routes', function () {
 
     before(async () => {
         await runServer(TEST_DATABASE_URL, PORT)
-        // await deleteCollections(['blogpostmodels'])
     })
 
     after(async () => {
