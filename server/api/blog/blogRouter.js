@@ -10,6 +10,32 @@ const router = express.Router();
 //hardcoded limit for posts per page
 const LIMIT = 10
 
+// NOTE: if adding more updatable fields to the model schema later on, just change this line
+// for example, if adding 'postBody' the next line will become 
+// const postModelFields = 'title postBody'.split(' ')
+const postModelFields = 'title'.split(' ') //an array of updatable field names
+
+function getFieldsFromRequest(fieldNamesArr, req) {
+    const requestFieldNames = Object.keys(req.body)
+
+    // new to reduce? 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce    
+    return fieldNamesArr.reduce((acc, fieldName) => {
+
+        if (requestFieldNames.includes(fieldName)) { // is this field name present in the request?
+            const value = req.body[fieldName]
+
+            // is there an usable value? 
+            // if so, add it to the reduce() return object
+            if (value !== undefined) {
+                acc[fieldName] = value
+            }
+        }
+        return acc
+    }, {})
+}
+
+
 //
 // setup blog posts CRUD
 //
@@ -17,12 +43,12 @@ const LIMIT = 10
 
 async function createPost(req, res) {
 
+    const fieldValues = getFieldsFromRequest(postModelFields, req)
+
     // whenever there's a promise returned we need to use 'await'
     // on the next line we retrieve into 'record' 
     // the value to which the blogPostModel.create(...) promise resolves to
-    const record = await blogPostModel.create({
-        title: req.body.title || 'Untitled post'
-    })
+    const record = await blogPostModel.create(fieldValues)
 
     res.json({ post: record.serialize() })
 }
@@ -92,29 +118,7 @@ async function updatePost(req, res) {
     if (existingRecord === null) {
         return res.status(404).json({ message: 'NOT_FOUND' })
     }
-
-    // if adding more updatable fields to the model schema later on, just change this line
-    // for example, if adding 'postBody' the next line will become 
-    // const fieldNamesArr = 'title postBody'.split(' ')
-    const fieldNamesArr = 'title'.split(' ') //an array of updatable field names
-
-    const requestFieldNames = Object.keys(req.body)
-
-    // new to reduce? 
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce    
-    const newFieldValues = fieldNamesArr.reduce((acc, fieldName) => {
-
-        if (requestFieldNames.includes(fieldName)) { // is this field name present in the request?
-            const value = req.body[fieldName]
-
-            // is there an usable value? 
-            // if so, add it to the reduce() return object
-            if (value !== undefined) {
-                acc[fieldName] = value
-            }
-        }
-        return acc
-    }, {})
+    const newFieldValues = getFieldsFromRequest(postModelFields, req)
 
     const updatedRecord = await blogPostModel.findByIdAndUpdate(
         { '_id': req.params.id },
