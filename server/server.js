@@ -88,5 +88,5 @@ if (require.main === module) {
     runServer(DATABASE_URL, PORT).catch(err => console.error('CANNOT START SERVER', err));
 }
 
-// export an object containing some functions and object so the test suite can access them
+// export an object containing some functions so the test suite can access them
 module.exports = { app, runServer, closeServer };
