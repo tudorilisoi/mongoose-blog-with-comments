@@ -1,11 +1,12 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 
-const mongoose = require('mongoose')
 const { closeServer, runServer, app } = require('../../server')
 const { TEST_DATABASE_URL, TEST_PORT } = require('../../../config')
 const { getConfig } = require('../../api/api')
 const PostModel = getConfig().models.BlogPostModel
+
+const { deleteCollections } = require('../../test-helpers')
 
 const expect = chai.expect; //using the chai assertion library
 const should = chai.should()
@@ -17,17 +18,6 @@ const seedData = [
     { title: 'Post 3' },
 ]
 const SEED_DATA_LENGTH = seedData.length
-
-async function deleteCollections(namesArr) {
-    // get existing collections
-    const collections = await mongoose.connection.db.collections()
-
-    // filter existing collections by name  
-    const filteredCollections = collections.filter(item => namesArr.includes(item.collectionName))
-
-    //drop the collections so we can start fresh every time this test runs
-    return await Promise.all(filteredCollections.map(c => c.remove()))
-}
 
 describe('blog API routes', function () {
 
