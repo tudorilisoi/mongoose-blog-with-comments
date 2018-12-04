@@ -10,7 +10,7 @@ const { JWT_SECRET } = require('../../../config');
 
 const localStrategy = new LocalStrategy(
   {
-    usernameField: 'email', //since e-mails are unique we'll use those as an identifier
+    usernameField: 'email', //since e-mails are unique we'll use those as identifiers
     passwordField: 'password',
   },
   async (email, password, callback) => {
