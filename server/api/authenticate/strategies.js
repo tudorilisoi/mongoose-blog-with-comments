@@ -20,10 +20,13 @@ const localStrategy = new LocalStrategy(
       if (validCredentials) {
         return callback(null, user)
       } else {
-        throw new Error('INVALID_PASSWORD')
+        const err = new Error('INVALID_PASSWORD')
+        return callback(null, false, err);      
       }
     } else {
-      throw new Error('NO_SUCH_EMAIL')
+      const err = new Error('NO_SUCH_EMAIL')
+      // return callback(err, null)
+      callback(null, false, err);
     }
   });
 
@@ -39,6 +42,9 @@ const jwtStrategy = new JwtStrategy(
     done(null, payload.user);
   }
 );
+
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 const localAuthMiddleware = passport.authenticate('local', { session: false });
 const jwtAuthMiddleware = passport.authenticate('jwt', { session: false });

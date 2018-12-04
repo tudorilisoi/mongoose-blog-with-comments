@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:api": "mocha 'server/**/*.test.js' --exit --timeout 10000 --reporter min",
+    "test:api": "mocha 'server/**/*.test.js' --exit --timeout 10000 --reporter list",
     "watch:test:api": "nodemon --watch server -x 'npm run test:api'",
     "develop": "nodemon --watch server server/server.js"
   },
