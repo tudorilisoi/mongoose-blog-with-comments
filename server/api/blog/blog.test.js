@@ -3,9 +3,9 @@ const chaiHttp = require('chai-http')
 
 const mongoose = require('mongoose')
 const { closeServer, runServer, app } = require('../../server')
-const { TEST_DATABASE_URL, PORT } = require('../../../config')
+const { TEST_DATABASE_URL, TEST_PORT } = require('../../../config')
 const { getConfig } = require('../../api/api')
-const PostModel = getConfig('blog').models.post
+const PostModel = getConfig().models.BlogPostModel
 
 const expect = chai.expect; //using the chai assertion library
 const should = chai.should()
@@ -32,7 +32,7 @@ async function deleteCollections(namesArr) {
 describe('blog API routes', function () {
 
     before(async () => {
-        await runServer(TEST_DATABASE_URL, PORT)
+        await runServer(TEST_DATABASE_URL, TEST_PORT)
     })
 
     after(async () => {

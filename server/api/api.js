@@ -1,32 +1,35 @@
-const blogPostModel = require('./blog/blogPostModel')
+const BlogPostModel = require('./blog/blogPostModel')
+const UserModel = require('./user/userModel')
 const blogRouter = require('./blog/blogRouter')
 const authRouter = require('./authenticate/authenticateRouter')
 
-// an object whose keys are route prefixes for express
-// add more keys(prefixes) here as you develop more routes and models
+// this brings all routers and models into one object which is exposed with getConfig()
 const apiConfig = {
-    blog: {
-        router: blogRouter,
-        models: {
-            post: blogPostModel,
-        },
-    }
+    routers: {
+        blog: blogRouter,
+        authenticate: authRouter,
+    },
+    models: {
+        BlogPostModel,
+        UserModel,
+    },
+
 }
 
 
 function setupRoutes(app) {
-    // walk the apiConfig object and setup routes 
-    const prefixes = Object.keys(apiConfig)
-    prefixes.forEach(prefix => {
-        console.log(`SETUP /${prefix} ROUTE PREFIX`)
-        const router = apiConfig[prefix].router
-        app.use(`/${prefix}`, router)
+    // walk the apiConfig.routers object and setup routes 
+    const routers = apiConfig.routers
+    Object.keys(routers).forEach(routePrefix => {
+        console.log(`SETUP /${routePrefix} ROUTE routePrefix`)
+        const router = routers[routePrefix]
+        app.use(`/${routePrefix}`, router)
     })
 
 }
 
-function getConfig(prefix) {
-    return apiConfig[prefix]
+function getConfig() {
+    return apiConfig
 }
 
 module.exports = {
