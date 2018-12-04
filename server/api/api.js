@@ -1,5 +1,6 @@
 const blogPostModel = require('./blog/blogPostModel')
 const blogRouter = require('./blog/blogRouter')
+const authRouter = require('./authenticate/authenticateRouter')
 
 // an object whose keys are route prefixes for express
 // add more keys(prefixes) here as you develop more routes and models

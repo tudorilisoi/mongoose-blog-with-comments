@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 
 const BlogPostSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  // date: { type: Date, required: true },
+
+  //the mongo record ID for this blog post
+  authorID:mongoose.Schema.Types.ObjectId,
 
 },
   { timestamps: { createdAt: 'createdAt' } }
